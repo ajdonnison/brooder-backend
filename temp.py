@@ -22,9 +22,13 @@ class Sensor(dbObject):
           int_part = temp[2:-3]
           dec_part = temp[-3:]
           self.value = float(int_part + '.' + dec_part)
-          self._changed.append('value')
           self.save()
           return self.value
+
+  def save(self):
+    c = self.execute("""UPDATE sensor SET value = %s, last_checked = NOW() WHERE id = %s""", (self.value, self.id))
+    self.commit()
+    c.close()
 
   def age(self):
     now = datetime.now()
