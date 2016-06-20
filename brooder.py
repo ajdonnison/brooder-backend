@@ -30,7 +30,7 @@ class Brooder(dbObject):
       self.setLight(config.compareTime())
       if self.set_temperature:
         self.setHeater(config.compareRaw(temp, self.set_temperature))
-      elif: self.cycle_started:
+      elif self.cycle_started:
         self.setHeater(config.compareRampedTemp(temp, self.cycle_started))
       else:
         self.setHeater(config.compareDefaultTemp(temp))
