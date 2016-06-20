@@ -12,6 +12,8 @@ class dbObject(object):
     self._changed = []
     if not dbObject._db:
       dbObject._db = MySQLdb.connect(**setup.DB_CONFIG)
+      c = dbObject._db.cursor()
+      c.execute("SET autocommit=1")
 
   def execute(self, sql, *args):
     try:
@@ -20,6 +22,7 @@ class dbObject(object):
     except (AttributeError, MySQLdb.OperationalError):
       dbObject._db = MySQLdb.connect()
       c = dbObject._db.cursor(MySQLdb.cursors.DictCursor)
+      c.execute("SET autocommit=1")
       c.execute(sql, *args)
     return c
 
@@ -34,7 +37,7 @@ class dbObject(object):
       setattr(self, var, res[var])
 
   def commit(self):
-    dbObject._db.commit()
+    pass
 
   def loadFromQuery(self, query):
     c = self.execute(query)
@@ -81,7 +84,7 @@ class dbObject(object):
       query = query + " WHERE id = %s"
       vals.append(self.id)
     c = self.execute(query, vals)
-    dbObject._db.commit()
+    self.commit()
     self._changed = []
     c.close()
 
