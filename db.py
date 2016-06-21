@@ -20,7 +20,7 @@ class dbObject(object):
       c = dbObject._db.cursor(MySQLdb.cursors.DictCursor)
       c.execute(sql, *args)
     except (AttributeError, MySQLdb.OperationalError):
-      dbObject._db = MySQLdb.connect()
+      dbObject._db = MySQLdb.connect(**setup.DB_CONFIG)
       c = dbObject._db.cursor(MySQLdb.cursors.DictCursor)
       c.execute("SET autocommit=1")
       c.execute(sql, *args)
