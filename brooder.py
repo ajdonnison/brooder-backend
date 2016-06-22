@@ -29,11 +29,11 @@ class Brooder(dbObject):
       temp = sensor.read()
       self.setLight(config.compareTime())
       if self.set_temperature:
-        self.setHeater(config.compareRaw(temp, self.set_temperature))
+        self.setHeater(config.compareRaw(temp, self.set_temperature, self.heater_state))
       elif self.cycle_started:
-        self.setHeater(config.compareRampedTemp(temp, self.cycle_started))
+        self.setHeater(config.compareRampedTemp(temp, self.cycle_started, self.heater_state))
       else:
-        self.setHeater(config.compareDefaultTemp(temp))
+        self.setHeater(config.compareDefaultTemp(temp, self.heater_state))
       # print "{name}: {temp}T {heater}H {light}L".format(name=self.name, temp=temp, heater=self.heater_state, light=self.light_state)
     else:
       self.setHeater(False)
@@ -88,6 +88,15 @@ class Brooder(dbObject):
     self.set_temperature = float(value)
     self.save()
       
+  def setDefault(self):
+    if self.set_temperature:
+      self.set_temperature = None
+      self._changed.append('set_temperature')
+    if self.cycle_enabled:
+      self.cycle_enabled = False
+      self._changed.appedn('cycle_enabled')
+    self.save()
+
   def status(self):
     result = super(Brooder, self).status()
     sensor = Sensor(id=self.sensor)
