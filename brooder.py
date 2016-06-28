@@ -76,7 +76,7 @@ class Brooder(dbObject):
       self.cycle_started = datetime.now()
       if self.set_temperature:
         self.set_temperature = None
-        self._changed.apped('set_temperature')
+        self._changed.append('set_temperature')
     self.cycle_enabled = state
     self.save()
 
@@ -94,7 +94,7 @@ class Brooder(dbObject):
       self._changed.append('set_temperature')
     if self.cycle_enabled:
       self.cycle_enabled = False
-      self._changed.appedn('cycle_enabled')
+      self._changed.append('cycle_enabled')
     self.save()
 
   def status(self):
