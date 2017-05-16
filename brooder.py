@@ -97,6 +97,21 @@ class Brooder(dbObject):
       self._changed.append('cycle_enabled')
     self.save()
 
+  def clone(self, other):
+    if self.set_temperature != other.set_temperature:
+      self.set_temperature = other.set_temperature
+      self._changed.append('set_temperature')
+    if self.cycle_enabled != other.cycle_enabled:
+      self.cycle_enabled = other.cycle_enabled
+      self._changed.append('cycle_enabled')
+    if self.cycle_started != other.cycle_started:
+      self.cycle_started = other.cycle_started
+      self._changed.append('cycle_started')
+    if self.enabled != other.enabled:
+      self.enabled = other.enabled
+      self._changed.append('enabled')
+    self.save()
+
   def status(self):
     result = super(Brooder, self).status()
     sensor = Sensor(id=self.sensor)
