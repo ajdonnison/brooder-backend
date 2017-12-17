@@ -2,7 +2,7 @@
   Abstraction of the Brooder object
 """
 from temp import Sensor
-from datetime import datetime
+from datetime import datetime, timedelta
 import RPi.GPIO as GPIO
 from db import dbObject
 from config import Config
@@ -78,6 +78,13 @@ class Brooder(dbObject):
         self.set_temperature = None
         self._changed.append('set_temperature')
     self.cycle_enabled = state
+    self.save()
+
+  def setCycleDay(self, value):
+    self._changed.append('cycle_started')
+    self._changed.append('cycle_enabled')
+    self.cycle_enabled = True
+    self.cycle_started = datetime.now() - timedelta(days=value)
     self.save()
 
   def setTemperature(self, value):
