@@ -5,3 +5,4 @@ In this version the base hardware is a RaspberryPi, and it doesn't really matter
 
 Temperature sensors are the Dallas (now Maxim) 1-wire DS18B20. These can usually be picked up already encased and wired with a 1m lead from places like AliExpress for very little money.
 
+This also has a Flask-based website associated - brooder-frontend.
