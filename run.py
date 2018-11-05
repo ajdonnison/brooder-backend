@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from config import Config
 from brooder import Brooder
 import time
