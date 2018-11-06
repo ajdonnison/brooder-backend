@@ -51,12 +51,12 @@ VALUES
 (4, '28-00000498251a'),
 (5, '28-000004986777');
 
-INSERT INTO `brooder` (`id`, `name`, `sensor`, `light`, `heater`, `enabled`)
+INSERT INTO `brooder` (`id`, `name`, `sensor`, `light`, `heater`, `enabled`, `cycle_started`)
 VALUES
-(1, 'Top', 2, 22, 18, 1),
-(2, 'Second', 3, 5, 24, 1),
-(3, 'Third', 4, 27, 12, 1),
-(4, 'Bottom', 5, 17, 23, 1);
+(1, 'Top', 2, 22, 18, 1, '2000-01-01 00:00:00'),
+(2, 'Second', 3, 5, 24, 1, '2000-01-01 00:00:00'),
+(3, 'Third', 4, 27, 12, 1, '2000-01-01 00:00:00'),
+(4, 'Bottom', 5, 17, 23, 1, '2000-01-01 00:00:00');
 
 DELETE FROM `config`;
 INSERT INTO `config` (`temp_high`, `temp_low`, `hysterisis`, `reference`, `time_start`, `time_end`, `cycle_offset`, `ramp_factor`)
